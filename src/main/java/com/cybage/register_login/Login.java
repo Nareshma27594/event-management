@@ -19,7 +19,7 @@ import com.cybage.services.UserServideImpl;
 import com.cybage.utility.Hash;
 
 
-@WebServlet("/Login")
+@WebServlet("/login")
 public class Login extends HttpServlet {
 	
 
