@@ -105,6 +105,9 @@ try(Connection connect = JDBCUtility.getConnection()){
 		
 		return 0;
 	}
+	
+	
+	
 
 	@Override
 	public boolean setOrganizerName(int id) {
@@ -126,7 +129,24 @@ try(Connection connect = JDBCUtility.getConnection()){
 
 	@Override
 	public int getOrganizerIdByEmail(String email) {
-		// TODO Auto-generated method stub
+
+		
+try(Connection connect = JDBCUtility.getConnection()){
+			
+			PreparedStatement stmt = connect.prepareStatement("select organizer_id from organizer where email=?");
+			   stmt.setString(1, email);
+			   ResultSet set= stmt.executeQuery();
+			   while(set.next())  
+				   return set.getInt(1);
+			   
+			  
+			
+		}
+		catch(Exception e) {
+			System.out.println("Error while getting getOrganizerIdByEmail(String email)"+e);
+		}
+		
+		
 		return 0;
 	}
 

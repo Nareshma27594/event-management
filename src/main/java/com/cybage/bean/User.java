@@ -1,5 +1,6 @@
 package com.cybage.bean;
 
+
 public class User {
 	String name;
     int id;
@@ -48,7 +49,8 @@ public class User {
 		this.name = name;
 		this.id = id;
 		this.email = email;
-		this.password = password;
+		
+		this.password =password;
 		this.phone = number;
 	}
 	public User(String name, String email, String password, int number) {
@@ -68,7 +70,8 @@ public String toString() {
 
 
 	public void setPassword(String password) {
-		this.password = password;
+		
+		this.password =password;
 	}
 	public int getPhone() {
 		return this.phone;

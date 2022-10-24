@@ -10,6 +10,13 @@ public class Organizer {
 		this.email = email;
 		this.password = password;
 	}
+    public Organizer( String name, String email, String password) {
+		super();
+		
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
 	String name;
     String email;
     String password;
