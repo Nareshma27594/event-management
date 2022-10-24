@@ -93,22 +93,20 @@
 
                     <div class="inputDiv">
                         <label class="inputLabel">Username</label>
-                        <input type="text" />
+                        <input type="text" name="email"/>
                     </div>
 
                     <div class="inputDiv">
                         <label class="inputLabel">Password</label>
-                        <input type="password" />
+                        <input type="password" name="password"/>
                     </div>
 
                     <div class="inputDiv">
                         <span class="inputLabel">Role</span>
-                        <select>
-                            
-                            <option selected="selected">ADMIN</option>
-                            <option selected="selected">Event organizer</option>
-                            <option selected="selected">User</option>
-                            
+                        <select name="role list"> 
+                            <option value="admin">ADMIN</option>
+                            <option value="organizer">Event organizer</option>
+                            <option selected value="user">User</option>                           
                         </select>
                     </div>
 

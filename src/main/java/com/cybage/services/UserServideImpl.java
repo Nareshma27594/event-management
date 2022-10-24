@@ -18,7 +18,7 @@ public boolean addUser(User user) {
 public static void main(String args[]) {
 	UserServideImpl impl = new UserServideImpl();
 	// public User(int id,String name, String email, String password, int number) {
-//	System.out.println(impl.addUser(new User("uname","uemail","upass",123)));
+	System.out.println(impl.addUser(new User("dname","demail","upass",123)));
 //	System.out.println(impl.getUserById(1));
 }
 @Override

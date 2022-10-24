@@ -35,13 +35,20 @@ public class DAOImpl implements DAO{
 	@Override
 	public Organizer getOrganizerById(int id) {
 
-        try(Connection connection = JDBCUtility.getConnection()){
+try(Connection connect = JDBCUtility.getConnection()){
+			
+			PreparedStatement stmt = connect.prepareStatement("select * from organizer where organizer_id=?");
+			   stmt.setInt(1, id);
+			   ResultSet set= stmt.executeQuery();
+			   while(set.next())  
+				   return new Organizer(set.getInt(1), set.getString(2),set.getString(3), set.getString(4));
+			   // 	public User(int id,String name, String email, String password, int number)
+			  
 			
 		}
 		catch(Exception e) {
-			System.out.println("");
+			System.out.println("Error while getting user getUserById(int id)"+e);
 		}
-		
 		return null;
 	}
 
@@ -152,8 +159,25 @@ try(Connection connect = JDBCUtility.getConnection()){
 
 	@Override
 	public boolean addOrganizer(Organizer organizer) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		 try(Connection connect = JDBCUtility.getConnection()){
+				
+	    	   PreparedStatement pstmt = connect.prepareStatement("insert into organizer(name, email, password, phone) values(?,?,?,?)");  
+			   pstmt.setString(1, organizer.getName());
+			   pstmt.setString(2, organizer.getEmail());
+			   pstmt.setString(3, organizer.getPassword());
+			   pstmt.setInt(4, 2141);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Erroe while addding an Organizer addUser(Organizer organizer)"+e);
+			}
+			
+			return false;
+		
+		
 	}
 
 	@Override
