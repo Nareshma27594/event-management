@@ -3,6 +3,8 @@ package com.cybage.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cybage.bean.Booking;
@@ -74,21 +76,59 @@ try(Connection connect = JDBCUtility.getConnection()){
 	}
 
 	@Override
-	public boolean setUserName(int id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setUserName(int id, String name) {
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update user set name=? where user_id=?");  
+			   pstmt.setString(1, name);
+			   pstmt.setInt(2, id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while setting name setUserName(int id,String name)"+e);
+			}
+			
+			return false;
 	}
 
 	@Override
-	public boolean setUserEmail(int id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setUserEmail(int id, String email) {
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update user set email=? where user_id=?");  
+			   pstmt.setString(1, email);
+			   pstmt.setInt(2, id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while setting name setUserEmail(int id,String email)"+e);
+			}
+			
+			return false;
 	}
 
 	@Override
-	public boolean setUserPassword(int id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setUserPassword(int id, String password) {
+		
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update user set password=? where user_id=?");  
+			   pstmt.setString(1, password);
+			   pstmt.setInt(2, id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while setting password setUserPassword(int id,String password)"+e);
+			}
+			
+			return false;
+		
 	}
 
 	@Override
@@ -117,21 +157,61 @@ try(Connection connect = JDBCUtility.getConnection()){
 	
 
 	@Override
-	public boolean setOrganizerName(int id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setOrganizerName(int id, String name) {
+	    
+		 try(Connection connect = JDBCUtility.getConnection()){
+				
+	    	   PreparedStatement pstmt = connect.prepareStatement("update organizer set name=? where organizer_id=?");  
+			   pstmt.setString(1, name);
+			   pstmt.setInt(2, id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while setting organizer_name setOrganizerName(int id, String name)"+e);
+			}
+			
+			return false;
+		
 	}
 
 	@Override
-	public boolean setOrganizerEmail(int id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setOrganizerEmail(int id, String email) {
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update organizer set email=? where organizer_id=?");  
+			   pstmt.setString(1, email);
+			   pstmt.setInt(2, id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while setting organizer email setOrganizerEmail(int id, String email)"+e);
+			}
+			
+			return false;
 	}
 
 	@Override
-	public boolean setOrganizerPassword(int id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setOrganizerPassword(int id, String password) {
+		
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update organizer set password=? where organizer_id=?");  
+			   pstmt.setString(1, password);
+			   pstmt.setInt(2, id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while setting organizer password setOrganizerPassword(int id, String password)"+e);
+			}
+			
+			return false;
+		
 	}
 
 	@Override
@@ -182,7 +262,23 @@ try(Connection connect = JDBCUtility.getConnection()){
 
 	@Override
 	public List<User> getAllUser() {
-		// TODO Auto-generated method stub
+
+		try(Connection connect = JDBCUtility.getConnection()){
+			List<User> list = new ArrayList<>();
+			Statement stmt = connect.createStatement();
+			ResultSet set = stmt.executeQuery("select * from user");
+			   
+//			   ResultSet set= stmt.executeQuery();
+			   while(set.next())  
+				    list.add(new User(set.getInt(1), set.getString(2),set.getString(3), set.getString(4),set.getInt(5)));
+			   // 	public User(int id,String name, String email, String password, int number)
+			   
+			 return list; 
+			
+		}
+		catch(Exception e) {
+			System.out.println("Error while getting userlist public List<User> getAllUser()"+e);
+		}
 		return null;
 	}
 
@@ -192,9 +288,27 @@ try(Connection connect = JDBCUtility.getConnection()){
 		return null;
 	}
 
+	/*returns event booked by user**/
 	@Override
-	public List<Event> getBookedEvents(int id) {
-		// TODO Auto-generated method stub
+	public List<Event> getBookedEvents(int user_id) {
+		List<Event> list = new ArrayList<>();
+try(Connection connect = JDBCUtility.getConnection()){
+			
+			PreparedStatement stmt = connect.prepareStatement("select * from event where event_id IN ( select event_id from booking where user_id=?)");
+			   stmt.setInt(1, user_id);
+			   ResultSet set= stmt.executeQuery();
+			   while(set.next())  {
+
+		// public           Event(int event_id, String name, String venue, int price, int organizer_id, String category, String date) 		   
+				   list.add(new Event(set.getInt(1), set.getString(2),set.getString(3), set.getInt(4),set.getInt(5), set.getString(6), set.getString(7)));
+				    //
+			   }
+			 return list; 
+			
+		}
+		catch(Exception e) {
+			System.out.println("Error while getting user getBookedEvnts(int id)"+e);
+		}
 		return null;
 	}
 
@@ -208,6 +322,125 @@ try(Connection connect = JDBCUtility.getConnection()){
 	public List<Booking> getAllBooking() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean setEventName(int id,String event_name) {
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update event set name=? where event_id=?");  
+			   pstmt.setString(1, event_name);
+			   pstmt.setInt(2, id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while setting event_name setEventName(int id,String event_name)"+e);
+			}
+			
+			return false;
+	}
+
+	@Override
+	public boolean setEventVenue(int event_id,String venue) {
+
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update event set venue=? where event_id=?");  
+			   pstmt.setString(1, venue);
+			   pstmt.setInt(2, event_id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while setting event_name setEventVenue(int id,String venue)"+e);
+			}
+			
+			return false;
+	}
+
+	@Override
+	public boolean setEventPrice(int event_id,int price) {
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update event set price=? where event_id=?");  
+			   pstmt.setInt(1, price);
+			   pstmt.setInt(2, event_id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while setting pric setEventPrice(int id,int price)"+e);
+			}
+			
+			return false;
+	}
+
+	@Override
+	public boolean setEventCategory(int event_id,String category) {
+		
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update event set category=? where event_id=?");  
+			   pstmt.setString(1, category);
+			   pstmt.setInt(2, event_id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while setting category setEventCategory(int event_id,String category)"+e);
+			}
+			
+			return false;
+		
+	}
+
+	
+	@Override
+	public boolean setEventDateTime(int event_id,String dateTime) {
+		
+
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update event set date=? where event_id=?");  
+			   pstmt.setString(1, dateTime);
+			   pstmt.setInt(2, event_id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while setting dateTime setEventDateTime(int event_id,String dateTime)"+e);
+			}
+			
+			return false;
+		
+	}
+
+	@Override
+	public boolean addEvent(Event event) {
+		 try(Connection connect = JDBCUtility.getConnection()){						 
+			 
+	    	   PreparedStatement pstmt = connect.prepareStatement("insert into event(name, venue, price, organizer_id, category, date) values(?,?,?,?,?,?)");  
+			   pstmt.setString(1, event.getName());
+			   pstmt.setString(2, event.getVenue());
+			   pstmt.setInt(3, event.getPrice());
+			   pstmt.setInt(4, event.getOrganizer_id());
+			   pstmt.setString(5, event.getCategory());
+			   pstmt.setString(6, event.getDate());
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Erroe while addding an event addEvent(Event event)"+e);
+			}
+			
+			return false;
 	}
 
 }

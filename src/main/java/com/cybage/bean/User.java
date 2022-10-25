@@ -67,8 +67,6 @@ public String toString() {
 	return "name "+this.name+" email"+this.email;
 }
 	
-
-
 	public void setPassword(String password) {
 		
 		this.password =password;

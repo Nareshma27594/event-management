@@ -1,5 +1,5 @@
 package com.cybage.bean;
-
+// select * from event where event_id IN ( select event_id from booking where user_id=7);
 public class Organizer {
 
     int id;
