@@ -75,6 +75,8 @@ try(Connection connect = JDBCUtility.getConnection()){
 		return false;
 	}
 
+	/////////////////////////////////////
+	
 	@Override
 	public boolean setUserName(int id, String name) {
 		try(Connection connect = JDBCUtility.getConnection()){
@@ -284,8 +286,31 @@ try(Connection connect = JDBCUtility.getConnection()){
 
 	@Override
 	public List<Event> getAllEvents() {
-		// TODO Auto-generated method stub
+		
+
+
+		try(Connection connect = JDBCUtility.getConnection()){
+			List<Event> list = new ArrayList<>();
+			Statement stmt = connect.createStatement();
+			ResultSet set = stmt.executeQuery("select * from event");
+			   
+		   
+		//	public Event(int event_id, String name, String venue, int price, int organizer_id, String category, String date) 
+				
+			
+			
+			   while(set.next())  
+				    list.add(new Event(set.getInt(1), set.getString(2),set.getString(3), set.getInt(4),set.getInt(5), set.getString(6), set.getString(7)));
+			   // 	public User(int id,String name, String email, String password, int number)
+			   
+			 return list; 
+			
+		}
+		catch(Exception e) {
+			System.out.println("Error while getting userlist public List<User> getAllUser()"+e);
+		}
 		return null;
+		
 	}
 
 	/*returns event booked by user**/
@@ -314,14 +339,51 @@ try(Connection connect = JDBCUtility.getConnection()){
 
 	@Override
 	public List<Event> getEventsByCategory(String category) {
-		// TODO Auto-generated method stub
+		
+		List<Event> list = new ArrayList<>();
+try(Connection connect = JDBCUtility.getConnection()){
+			
+			PreparedStatement stmt = connect.prepareStatement("select * from event where category=?");
+			   stmt.setString(1, category);
+			   ResultSet set= stmt.executeQuery();
+			   while(set.next())  {
+
+		// public           Event(int event_id, String name, String venue, int price, int organizer_id, String category, String date) 		   
+				   list.add(new Event(set.getInt(1), set.getString(2),set.getString(3), set.getInt(4),set.getInt(5), set.getString(6), set.getString(7)));
+				    //
+			   }
+			 return list; 
+			
+		}
+		catch(Exception e) {
+			System.out.println("Error while getting user getEventsByCategory(String category)"+e);
+		}
 		return null;
+		
 	}
 
 	@Override
 	public List<Booking> getAllBooking() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Booking> list = new ArrayList<>();
+		try(Connection connect = JDBCUtility.getConnection()){
+					
+			Statement stmt = connect.createStatement();
+					   ResultSet set= stmt.executeQuery("select * from booking");
+					   while(set.next())  {
+
+				// public           Event(int event_id, String name, String venue, int price, int organizer_id, String category, String date) 		   
+						   list.add(new Booking(set.getInt(1), set.getInt(2),set.getInt(3)));
+						    //
+					   }
+					 return list; 
+					
+				}
+				catch(Exception e) {
+					System.out.println("Error while getting booking getAllBooking()"+e);
+				}
+				return null;
+		
 	}
 
 	@Override
@@ -443,4 +505,135 @@ try(Connection connect = JDBCUtility.getConnection()){
 			return false;
 	}
 
+	// ---------------------------deleteUser---------------------------------
+	@Override
+	public boolean deleteUserById(int id) {
+		try(Connection connect = JDBCUtility.getConnection()){						 
+			 
+	    	   PreparedStatement pstmt = connect.prepareStatement("delete from user where user_id=?");  
+			   pstmt.setInt(1, id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Erroe while deleting an user deleteUserById(int id)"+e);
+			}
+			
+			return false;
+	}
+	
+//--------------------------deleteOrganizer------------------
+	@Override
+	public boolean deleteOrganizerById(int organizer_id) {
+		try(Connection connect = JDBCUtility.getConnection()){						 
+			 
+	    	   PreparedStatement pstmt = connect.prepareStatement("delete from organizer where organizer_id=?");  
+			   pstmt.setInt(1, organizer_id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Erroe while deleting an Organizer deleteOrganizerById(int organizer_id)"+e);
+			}
+			
+			return false;
+	}
+
+//--------------------------deleteEvent----------------------------	
+	@Override
+	public boolean deleteEventById(int event_id) {
+		
+		try(Connection connect = JDBCUtility.getConnection()){						 
+			 
+	    	   PreparedStatement pstmt = connect.prepareStatement("delete from event where event_id=?");  
+			   pstmt.setInt(1, event_id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Erroe while deleting an Event deleteEventById(int event_id)"+e);
+			}
+			
+			return false;
+		
+	}
+
+	@Override
+	public boolean deleteEventByOrganizerId(int organizer_id) {
+		try(Connection connect = JDBCUtility.getConnection()){						 
+			 
+	    	   PreparedStatement pstmt = connect.prepareStatement("delete from event where organizer_id=?");  
+			   pstmt.setInt(1, organizer_id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Erroe while deleting an Event deleteEventByOrganizerId(int organizer_id)"+e);
+			}
+			
+			return false;
+			
+	}
+
+	@Override
+	public boolean addBooking(Booking booking) {
+		try(Connection connection  = JDBCUtility.getConnection()){
+			PreparedStatement pstmt = connection.prepareStatement(" ");
+//			pstmt.setInt(1, booking);
+		}
+		catch(Exception e) {
+			System.out.println("Error while addinng booking addBooking(Booking booking)");
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteBookingById(int booking_id) {
+		try(Connection connect = JDBCUtility.getConnection()){
+			PreparedStatement pstmt = connect.prepareStatement("delete from booking where booking_id = ?");
+			pstmt.setInt(1, booking_id);
+			pstmt.executeUpdate();
+			return true;
+		}
+		catch(Exception e) {
+			System.out.println("Error while deleting Booking delteBookingById");
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteBookingByUserId(int user_id) {
+		try(Connection connect = JDBCUtility.getConnection()){
+			PreparedStatement pstmt = connect.prepareStatement("delete from booking where user_id = ?");
+			pstmt.setInt(1, user_id);
+			pstmt.executeUpdate();
+			return true;
+		}
+		catch(Exception e) {
+			System.out.println("Error while deleting Booking delteBookingByUserId");
+		}
+		return false;
+		
+	}
+
+	@Override
+	public boolean deleteBookingByOrganizerId(int organizer_id) {
+		try(Connection connect = JDBCUtility.getConnection()){
+			PreparedStatement pstmt = connect.prepareStatement("delete from booking where organizer_id = ?");
+			pstmt.setInt(1, organizer_id);
+			pstmt.executeUpdate();
+			return true;
+		}
+		catch(Exception e) {
+			System.out.println("Error while deleting Booking deleteBookingByOrganizerId");
+		}
+		return false;
+	}
+
+	
+	
 }

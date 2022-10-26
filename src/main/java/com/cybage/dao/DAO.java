@@ -16,29 +16,28 @@ public interface DAO {
     public boolean setUserEmail(int id, String email);
     public boolean setUserPassword(int id, String password);
     public int getUserIdByEmail(String email);
+    public boolean deleteUserById(int id);
     
     public boolean setOrganizerName(int id, String name);
     public boolean setOrganizerEmail(int id, String email);
     public boolean setOrganizerPassword(int id, String password);
     public int getOrganizerIdByEmail(String email);
     public boolean addOrganizer(Organizer organizer);
+    public boolean deleteOrganizerById(int organizer_id);
     
     public boolean setEventName(int event_id,String event_name);
-    // this.event_id = event_id;
-//	this.name = name;
-//	this.venue = venue;
-//	this.price = price;
-//	this.organizer_id = organizer_id;
-//	this.category = category;
-//	this.date = date;
     public boolean addEvent(Event event);
     public boolean setEventVenue(int event_id,String venue);
     public boolean setEventPrice(int event_id,int price);
     public boolean setEventCategory(int event_id,String venue);
     public boolean setEventDateTime(int event_id,String dateTime);
+    public boolean deleteEventById(int event_id);
+    public boolean deleteEventByOrganizerId(int organizer_id);
     
-    
-    
+    public boolean addBooking(Booking booking);
+    public boolean deleteBookingById(int booking_id);
+    public boolean deleteBookingByUserId(int user_id);
+    public boolean deleteBookingByOrganizerId(int organizer_id);
     
     public List<User> getAllUser();
     public List<Event> getAllEvents();
