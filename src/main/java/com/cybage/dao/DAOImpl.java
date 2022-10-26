@@ -582,8 +582,11 @@ try(Connection connect = JDBCUtility.getConnection()){
 	@Override
 	public boolean addBooking(Booking booking) {
 		try(Connection connection  = JDBCUtility.getConnection()){
-			PreparedStatement pstmt = connection.prepareStatement(" ");
-//			pstmt.setInt(1, booking);
+			PreparedStatement pstmt = connection.prepareStatement("insert into booking(event_id, user_id) values(?,?)");
+            pstmt.setInt(1,booking.getEvent_id());
+            pstmt.setInt(2,booking.getUser_id());
+            pstmt.executeUpdate();
+			//			pstmt.setInt(1, booking);
 		}
 		catch(Exception e) {
 			System.out.println("Error while addinng booking addBooking(Booking booking)");
@@ -600,7 +603,7 @@ try(Connection connect = JDBCUtility.getConnection()){
 			return true;
 		}
 		catch(Exception e) {
-			System.out.println("Error while deleting Booking delteBookingById");
+			System.out.println("Error while deleting Booking deleteBookingById(int booking_id)");
 		}
 		return false;
 	}
@@ -614,7 +617,7 @@ try(Connection connect = JDBCUtility.getConnection()){
 			return true;
 		}
 		catch(Exception e) {
-			System.out.println("Error while deleting Booking delteBookingByUserId");
+			System.out.println("Error while deleting Booking deleteBookingByUserId(int user_id)");
 		}
 		return false;
 		
@@ -629,7 +632,7 @@ try(Connection connect = JDBCUtility.getConnection()){
 			return true;
 		}
 		catch(Exception e) {
-			System.out.println("Error while deleting Booking deleteBookingByOrganizerId");
+			System.out.println("Error while deleting Booking deleteBookingByOrganizerId(int organizer_id)");
 		}
 		return false;
 	}
