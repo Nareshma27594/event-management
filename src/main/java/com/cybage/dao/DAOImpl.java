@@ -509,7 +509,8 @@ try(Connection connect = JDBCUtility.getConnection()){
 	@Override
 	public boolean deleteUserById(int id) {
 		try(Connection connect = JDBCUtility.getConnection()){						 
-			 
+			   DAOImpl impl = new DAOImpl();
+			   impl.deleteBookingByUserId(id);
 	    	   PreparedStatement pstmt = connect.prepareStatement("delete from user where user_id=?");  
 			   pstmt.setInt(1, id);
 			   pstmt.executeUpdate();
@@ -527,7 +528,9 @@ try(Connection connect = JDBCUtility.getConnection()){
 	@Override
 	public boolean deleteOrganizerById(int organizer_id) {
 		try(Connection connect = JDBCUtility.getConnection()){						 
-			 
+			   DAOImpl daoImpl = new DAOImpl();
+			   daoImpl.deleteBookingByOrganizerId(organizer_id);
+			   daoImpl.deleteEventByOrganizerId(organizer_id);
 	    	   PreparedStatement pstmt = connect.prepareStatement("delete from organizer where organizer_id=?");  
 			   pstmt.setInt(1, organizer_id);
 			   pstmt.executeUpdate();
@@ -546,7 +549,8 @@ try(Connection connect = JDBCUtility.getConnection()){
 	public boolean deleteEventById(int event_id) {
 		
 		try(Connection connect = JDBCUtility.getConnection()){						 
-			 
+			   DAOImpl daoImpl = new DAOImpl();
+//			   daoImpl.delete
 	    	   PreparedStatement pstmt = connect.prepareStatement("delete from event where event_id=?");  
 			   pstmt.setInt(1, event_id);
 			   pstmt.executeUpdate();
