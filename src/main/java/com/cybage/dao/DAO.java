@@ -37,12 +37,13 @@ public interface DAO {
     public boolean addBooking(Booking booking);
     public boolean deleteBookingById(int booking_id);
     public boolean deleteBookingByUserId(int user_id);
-    public boolean deleteBookingByOrganizerId(int organizer_id);
+    public boolean deleteBookingByEventId(int event_id);
     
     public List<User> getAllUser();
     public List<Event> getAllEvents();
-    public List<Event> getBookedEvents(int id);
+    public List<Event> getBookedEvents(int user_id);
     public List<Event> getEventsByCategory(String category);
     public List<Booking> getAllBooking();
+    public List<Event> getEventsOrganizedByOrganizer(int organizer_id);
     
 }

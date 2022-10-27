@@ -529,7 +529,6 @@ try(Connection connect = JDBCUtility.getConnection()){
 	public boolean deleteOrganizerById(int organizer_id) {
 		try(Connection connect = JDBCUtility.getConnection()){						 
 			   DAOImpl daoImpl = new DAOImpl();
-			   daoImpl.deleteBookingByOrganizerId(organizer_id);
 			   daoImpl.deleteEventByOrganizerId(organizer_id);
 	    	   PreparedStatement pstmt = connect.prepareStatement("delete from organizer where organizer_id=?");  
 			   pstmt.setInt(1, organizer_id);
@@ -550,7 +549,7 @@ try(Connection connect = JDBCUtility.getConnection()){
 		
 		try(Connection connect = JDBCUtility.getConnection()){						 
 			   DAOImpl daoImpl = new DAOImpl();
-//			   daoImpl.delete
+			   daoImpl.deleteBookingByEventId(event_id);
 	    	   PreparedStatement pstmt = connect.prepareStatement("delete from event where event_id=?");  
 			   pstmt.setInt(1, event_id);
 			   pstmt.executeUpdate();
@@ -568,7 +567,15 @@ try(Connection connect = JDBCUtility.getConnection()){
 	@Override
 	public boolean deleteEventByOrganizerId(int organizer_id) {
 		try(Connection connect = JDBCUtility.getConnection()){						 
-			 
+			DAOImpl daoImpl = new DAOImpl();
+			
+		List<Event> list = daoImpl.getEventsOrganizedByOrganizer(organizer_id);
+		
+		for(Event event:list)
+		daoImpl.deleteEventById(event.getEvent_id());
+		
+		
+			/// Get the list events organized by oragnizer
 	    	   PreparedStatement pstmt = connect.prepareStatement("delete from event where organizer_id=?");  
 			   pstmt.setInt(1, organizer_id);
 			   pstmt.executeUpdate();
@@ -590,6 +597,7 @@ try(Connection connect = JDBCUtility.getConnection()){
             pstmt.setInt(1,booking.getEvent_id());
             pstmt.setInt(2,booking.getUser_id());
             pstmt.executeUpdate();
+            return true;
 			//			pstmt.setInt(1, booking);
 		}
 		catch(Exception e) {
@@ -628,17 +636,44 @@ try(Connection connect = JDBCUtility.getConnection()){
 	}
 
 	@Override
-	public boolean deleteBookingByOrganizerId(int organizer_id) {
+	public boolean deleteBookingByEventId(int event_id) {
 		try(Connection connect = JDBCUtility.getConnection()){
-			PreparedStatement pstmt = connect.prepareStatement("delete from booking where organizer_id = ?");
-			pstmt.setInt(1, organizer_id);
+			PreparedStatement pstmt = connect.prepareStatement("delete from booking where event_id = ?");
+			pstmt.setInt(1, event_id);
 			pstmt.executeUpdate();
 			return true;
 		}
 		catch(Exception e) {
-			System.out.println("Error while deleting Booking deleteBookingByOrganizerId(int organizer_id)");
+			System.out.println("Error while deleting Booking deleteBookingByEventId(int event_id)");
 		}
 		return false;
+	}
+
+	@Override
+	public List<Event> getEventsOrganizedByOrganizer(int organizer_id) {
+		
+
+		List<Event> list = new ArrayList<>();
+		try(Connection connect = JDBCUtility.getConnection()){
+					
+			PreparedStatement pstmt = connect.prepareStatement("select * from event where organizer_id=?");
+			pstmt.setInt(1, organizer_id);
+			
+					   ResultSet set= pstmt.executeQuery();
+					   while(set.next())  {
+
+				// public           Event(int event_id, String name, String venue, int price, int organizer_id, String category, String date) 		   
+						   list.add(new Event(set.getInt(1), set.getString(2),set.getString(3), set.getInt(4), set.getInt(5), set.getString(6),set.getString(7)));
+						    //
+					   }
+					 return list; 
+					
+				}
+				catch(Exception e) {
+					System.out.println("Error while getting events getEventsOrganizedByOrganizer(int organizer_id)"+e);
+				}
+				return null;
+		
 	}
 
 	
