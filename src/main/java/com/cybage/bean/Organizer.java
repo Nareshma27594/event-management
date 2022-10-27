@@ -17,9 +17,20 @@ public class Organizer {
 		this.email = email;
 		this.password = password;
 	}
+    
+    public Organizer(int id, String name, String email, String password, int number) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.number = number;
+	}
+    
 	String name;
     String email;
     String password;
+    int number;
 	
 	public int getId() {
 		return id;
@@ -52,4 +63,12 @@ public class Organizer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public int getPhoneNumber() {
+		return this.number;
+	}
+	
+	public void setPhoneNumber(int number) {
+		this.number = number;
+	}
+	
 }

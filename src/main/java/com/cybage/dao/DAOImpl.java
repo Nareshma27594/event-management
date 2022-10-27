@@ -43,7 +43,7 @@ try(Connection connect = JDBCUtility.getConnection()){
 			   stmt.setInt(1, id);
 			   ResultSet set= stmt.executeQuery();
 			   while(set.next())  
-				   return new Organizer(set.getInt(1), set.getString(2),set.getString(3), set.getString(4));
+				   return new Organizer(set.getInt(1), set.getString(2),set.getString(3), set.getString(4),set.getInt(5));
 			   // 	public User(int id,String name, String email, String password, int number)
 			  
 			
@@ -673,6 +673,61 @@ try(Connection connect = JDBCUtility.getConnection()){
 					System.out.println("Error while getting events getEventsOrganizedByOrganizer(int organizer_id)"+e);
 				}
 				return null;
+		
+	}
+
+	@Override
+	public boolean setUserNumber(int user_id, int phone_number) {
+		try(Connection connect = JDBCUtility.getConnection()){ ///////////////////////////////////////
+			PreparedStatement pstmt = connect.prepareStatement("update user set phone =? where  user_id = ?");
+			pstmt.setInt(1, user_id);
+			pstmt.setInt(2, phone_number);
+			pstmt.executeUpdate();
+			return true;
+		}
+		catch(Exception e) {
+			System.out.println("Error while setting user phone number boolean setUserNumber(int user_id, int phone_number)");
+		}
+		return false;
+	}
+
+	@Override
+	public boolean setOrganizerNumber(int organizer_id, int phone_number) {
+		try(Connection connect = JDBCUtility.getConnection()){
+			PreparedStatement pstmt = connect.prepareStatement("update organizer set phone =? where  organizer_id = ?");
+			pstmt.setInt(1, organizer_id);
+			pstmt.setInt(2, phone_number);
+			pstmt.executeUpdate();
+			return true;
+		}
+		catch(Exception e) {
+			System.out.println("Error while setting organizer phone number boolean setOrganizerNumber(int organizer_id, int phone_number)");
+		}
+		return false;
+	}
+
+	@Override
+	public List<Organizer> getAllOrganizer() {
+		
+		List<Organizer> list = new ArrayList<>();
+		try(Connection connect = JDBCUtility.getConnection()){
+					
+					Statement stmt = connect.createStatement();
+					  
+					   ResultSet set= stmt.executeQuery("select * from organizer");
+					   while(set.next())  {
+	   
+						   list.add(new Organizer(set.getInt(1), set.getString(2),set.getString(3), set.getString(4),set.getInt(5)));
+						    
+					   }
+					 return list; 
+					
+				}
+				catch(Exception e) {
+					System.out.println("Error while getting lsit of organizer List<Organizer> getAllOrganizer()"+e);
+				}
+				return null;
+		
 		
 	}
 
