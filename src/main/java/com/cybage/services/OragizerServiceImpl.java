@@ -58,4 +58,9 @@ public class OragizerServiceImpl implements OrganizerService {
 		return dao.setOrganizerNumber(id, number);
 	}
 
+	@Override
+	public boolean deleteEventByOrganizerId(int organizer_id) {
+		return dao.deleteEventByOrganizerId(organizer_id);
+	}
+
 }

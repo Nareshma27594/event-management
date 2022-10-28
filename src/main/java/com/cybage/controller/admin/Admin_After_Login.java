@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cybage.bean.Event;
 import com.cybage.bean.Organizer;
+import com.cybage.services.EventService;
+import com.cybage.services.EventServiceImpl;
 import com.cybage.services.OragizerServiceImpl;
 import com.cybage.services.OrganizerService;
 
@@ -36,12 +39,22 @@ public class Admin_After_Login extends HttpServlet {
 			ServletContext context = getServletContext();
 			context.setAttribute("organizer_list", organizer_list);
 			
-			response.getWriter().println("hi");
+		
 			request.getRequestDispatcher("admin_organizer_dashboard.jsp").forward(request, response);
 			
 			
 		}
 		else if(choice.equals("event")) {
+			
+			EventService event_service = new EventServiceImpl();
+			List<Event> events_list = event_service.getAllEvents();
+			ServletContext context = getServletContext();
+			context.setAttribute("event_list", events_list);
+			
+		
+			request.getRequestDispatcher("admin_events_dashboard.jsp").forward(request, response);
+			
+
 			
 		}
 		else if(choice.equals("booking")) {

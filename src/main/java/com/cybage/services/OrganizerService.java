@@ -20,6 +20,7 @@ public interface OrganizerService {
     public boolean setOrganizerNumber(int id, int number);
    
    
+    public boolean deleteEventByOrganizerId(int organizer_id);
   
 	
 }

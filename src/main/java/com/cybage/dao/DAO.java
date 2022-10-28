@@ -10,6 +10,7 @@ import com.cybage.bean.User;
 public interface DAO {
 	public User getUserById(int id);
     public Organizer getOrganizerById(int id);
+    public Event getEventById(int id);
     
     public boolean addUser(User user);
     public boolean setUserName(int id, String name);
@@ -35,6 +36,7 @@ public interface DAO {
     public boolean setEventDateTime(int event_id,String dateTime);
     public boolean deleteEventById(int event_id);
     public boolean deleteEventByOrganizerId(int organizer_id);
+    public boolean setOrganizerIdOfEventById(int event_id, int organizer_id);
     
     public boolean addBooking(Booking booking);
     public boolean deleteBookingById(int booking_id);

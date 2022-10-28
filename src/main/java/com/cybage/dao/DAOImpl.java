@@ -301,13 +301,12 @@ try(Connection connect = JDBCUtility.getConnection()){
 			
 			   while(set.next())  
 				    list.add(new Event(set.getInt(1), set.getString(2),set.getString(3), set.getInt(4),set.getInt(5), set.getString(6), set.getString(7)));
-			   // 	public User(int id,String name, String email, String password, int number)
 			   
 			 return list; 
 			
 		}
 		catch(Exception e) {
-			System.out.println("Error while getting userlist public List<User> getAllUser()"+e);
+			System.out.println("Error while getting eventlist public List<Event> getAllEvents()"+e);
 		}
 		return null;
 		
@@ -468,7 +467,7 @@ try(Connection connect = JDBCUtility.getConnection()){
 
 		try(Connection connect = JDBCUtility.getConnection()){
 			
-	    	   PreparedStatement pstmt = connect.prepareStatement("update event set date=? where event_id=?");  
+	    	   PreparedStatement pstmt = connect.prepareStatement("update event set datetime=? where event_id=?");  
 			   pstmt.setString(1, dateTime);
 			   pstmt.setInt(2, event_id);
 			   pstmt.executeUpdate();
@@ -729,6 +728,47 @@ try(Connection connect = JDBCUtility.getConnection()){
 				return null;
 		
 		
+	}
+
+	@Override
+	public Event getEventById(int id) {
+try(Connection connect = JDBCUtility.getConnection()){
+			
+			PreparedStatement stmt = connect.prepareStatement("select * from event where event_id=?");
+			   stmt.setInt(1, id);
+			   ResultSet set= stmt.executeQuery();
+			   
+			   
+			   
+			   
+			   
+			   
+//			   public Event(int event_id, String name, String venue, int price, int organizer_id, String category, String date) {
+		   
+			   while(set.next())  
+				   return new Event(set.getInt(1), set.getString(2),set.getString(3), set.getInt(4),set.getInt(5),set.getString(6),set.getString(7));
+			  
+			
+		}
+		catch(Exception e) {
+			System.out.println("Error while getting Event getEventById(int id)"+e);
+		}
+		return null;
+	}
+
+	@Override
+	public boolean setOrganizerIdOfEventById(int event_id, int organizer_id) {
+		try(Connection connect = JDBCUtility.getConnection()){ ///////////////////////////////////////
+			PreparedStatement pstmt = connect.prepareStatement("update event set organizer_id =? where  event_id = ?");
+			pstmt.setInt(1, organizer_id);
+			pstmt.setInt(2, event_id);
+			pstmt.executeUpdate();
+			return true;
+		}
+		catch(Exception e) {
+			System.out.println("Error while setting organizer id of event id boolean setOrganizerIdOfEventById(int event_id, int organizer_id)");
+		}
+		return false;
 	}
 
 	
