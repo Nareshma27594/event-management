@@ -20,7 +20,17 @@ import com.cybage.services.OrganizerService;
 @WebServlet("/oragnizer_delete")
 public class OragnizerDelete extends HttpServlet {
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		String organizer_id = request.getParameter("organizer_id");
+//		OrganizerService org_service = new OragizerServiceImpl();
+//	    org_service.deleteOrganizer(Integer.parseInt(organizer_id));
+//		List<Organizer> organizer_list = org_service.getAllOrganizer();
+//		ServletContext context = getServletContext();
+//		context.setAttribute("organizer_list", organizer_list);
+//		request.getRequestDispatcher("admin_organizer_dashboard.jsp").forward(request, response);
+//	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String organizer_id = request.getParameter("organizer_id");
 		OrganizerService org_service = new OragizerServiceImpl();
 	    org_service.deleteOrganizer(Integer.parseInt(organizer_id));
@@ -28,6 +38,7 @@ public class OragnizerDelete extends HttpServlet {
 		ServletContext context = getServletContext();
 		context.setAttribute("organizer_list", organizer_list);
 		request.getRequestDispatcher("admin_organizer_dashboard.jsp").forward(request, response);
+
 	}
 
 }

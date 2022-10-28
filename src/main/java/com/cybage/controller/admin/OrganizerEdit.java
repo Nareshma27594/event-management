@@ -19,15 +19,16 @@ import com.cybage.services.OrganizerService;
 @WebServlet("/organizer_edit")
 public class OrganizerEdit extends HttpServlet {
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 //		String organizer_id = request.getParameter("organizer_id");
 //		OrganizerService org_service = new OragizerServiceImpl();
 //		Organizer organizer = org_service.getOrganizerById(Integer.parseInt(organizer_id));
 //		ServletContext context = getServletContext();
 //		context.setAttribute("organizer_object", organizer);
+		// ------------
 		request.getRequestDispatcher("admin_organizer_edit_form.jsp").forward(request, response);
-		
+//	    response.getWriter().println("organizer_edit");	
 	}
 
 }

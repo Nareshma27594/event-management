@@ -33,7 +33,7 @@
 						
 						<td><c:out value="${organizerList.name}" /></td>
 						<td><c:out value="${organizerList.email}" /></td>
-						<td><c:out value="${organizerList.number}" /></td>
+					    <td><c:out value="${organizerList.phoneNumber}" /></td>
 						<td><a
 							href="oragnizer_delete?organizer_id=${organizerList.id}">Delete</a><br>
 						<br><a href="organizer_edit?organizer_id=${organizerList.id}">Edit</a></td>
@@ -42,22 +42,9 @@
 				</c:forEach>
 
 
-
-
-				<tr>
-					<th scope="row">2</th>
-					<td>Jacob</td>
-					<td>Thornton</td>
-					<td></td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>Larry the Bird</td>
-					<td>Larry the Bird</td>
-					<td>@twitter</td>
-				</tr>
 			</tbody>
 		</table>
 	</div>
+	<a href="admin_after_login.html">Go to dashboard</a>
 </body>
 </html>

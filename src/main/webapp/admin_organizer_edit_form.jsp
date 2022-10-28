@@ -111,17 +111,17 @@ int number = organizer.getPhoneNumber();
 					</div>
 					<div class="input_field">
 						<span><i aria-hidden="true" class="fa fa-lock"></i></span> <input
-							type="password" name="password" value="" />
+							type="password" name="password" placeholder="password is hidden type here to set new password" />
 					</div>
-					<div class="input_field">
+			 		<div class="input_field">
 						<span><i aria-hidden="true" class="fa fa-lock"></i></span> <input
 							type="tel" name="phone_number" value="<%=number%>" />
 					</div>
-
+ 
 					<div class="buttonWrapper">
 						<input type="submit" style="background-color: #065492"
-							class="submitButton">
-						<div>Update</div>
+							class="submitButton" value="Update">
+						
 
 					</div>
 				</form>
