@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" import="com.cybage.bean.Organizer,com.cybage.services.*"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	import="com.cybage.bean.Organizer,com.cybage.services.*"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -83,8 +84,8 @@ input {
 				<div class="title_container">
 					<h2>Organizer Data</h2>
 				</div>
-				
-<%
+
+				<%
 
 String organizer_id = request.getParameter("organizer_id");
 OrganizerService org_service = new OragizerServiceImpl();
@@ -93,25 +94,24 @@ int id = organizer.getId();
 String name = organizer.getName();
 String email = organizer.getEmail();
 int number = organizer.getPhoneNumber();
-%>				
-				
+%>
+
 				<form action="organizer_update" method="post">
 					<div class="input_field">
 						<span><i aria-hidden="true" class="fa fa-user"></i></span> <input
-							type="text" name="organizer_id" value="<%=id%>"
-							 readonly />
+							type="text" name="organizer_id" value="<%=id%>" readonly />
 					</div>
 					<div class="input_field">
 						<span><i aria-hidden="true" class="fa fa-envelope"></i></span> <input
-							type="text" name="name"  value="<%=name%>" />
+							type="text" name="name" value="<%=name%>" />
 					</div>
 					<div class="input_field">
 						<span><i aria-hidden="true" class="fa fa-lock"></i></span> <input
-							type="email" name="email"  value="<%=email%>"/>
+							type="email" name="email" value="<%=email%>" />
 					</div>
 					<div class="input_field">
 						<span><i aria-hidden="true" class="fa fa-lock"></i></span> <input
-							type="password" name="password"  value="" />
+							type="password" name="password" value="" />
 					</div>
 					<div class="input_field">
 						<span><i aria-hidden="true" class="fa fa-lock"></i></span> <input
@@ -121,8 +121,8 @@ int number = organizer.getPhoneNumber();
 					<div class="buttonWrapper">
 						<input type="submit" style="background-color: #065492"
 							class="submitButton">
-							<div>Update</div>
-						
+						<div>Update</div>
+
 					</div>
 				</form>
 			</center>
