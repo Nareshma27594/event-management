@@ -27,6 +27,13 @@ public interface DAO {
     public int getOrganizerIdByEmail(String email);
     public boolean addOrganizer(Organizer organizer);
     public boolean deleteOrganizerById(int organizer_id);
+  
+    // public String getEventName(int id);
+    
+    //
+    //
+    //
+    //
     
     public boolean setEventName(int event_id,String event_name);
     public boolean addEvent(Event event);
@@ -42,6 +49,7 @@ public interface DAO {
     public boolean deleteBookingById(int booking_id);
     public boolean deleteBookingByUserId(int user_id);
     public boolean deleteBookingByEventId(int event_id);
+    public Booking getBooking(int booking_id);
     
     public List<User> getAllUser();
     public List<Organizer> getAllOrganizer();

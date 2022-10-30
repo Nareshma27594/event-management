@@ -771,6 +771,25 @@ try(Connection connect = JDBCUtility.getConnection()){
 		return false;
 	}
 
+	@Override
+	public Booking getBooking(int booking_id) {
+try(Connection connect = JDBCUtility.getConnection()){
+			
+			PreparedStatement stmt = connect.prepareStatement("select * from booking where booking_id=?");
+			   stmt.setInt(1, booking_id);
+			   ResultSet set= stmt.executeQuery();
+			   while(set.next())  
+				   return new Booking(set.getInt(1), set.getInt(2),set.getInt(3));
+			   // 	public Booking(int bookingid,int event_id, int  user_id, String password, int number)
+			  
+			
+		}
+		catch(Exception e) {
+			System.out.println("Error while getting user getUserById(int id)"+e);
+		}
+		return null;
+	}
+
 	
 	
 }

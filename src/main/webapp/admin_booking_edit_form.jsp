@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	import="com.cybage.bean.Event,com.cybage.services.*"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" import="com.cybage.services.*,com.cybage.bean.*"
+    pageEncoding="ISO-8859-1"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Add Event</title>
-<style>
+<title>Insert title here</title>
 body {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 14px;
@@ -76,7 +75,6 @@ input {
 }
 </style>
 </head>
-
 <body>
 	<div class="main">
 		<div class="form_container">
@@ -87,43 +85,45 @@ input {
 
 				<%
 				
-String event_id = request.getParameter("event_id");
-EventService org_service = new EventServiceImpl();
-Event event = org_service.getEventById(Integer.parseInt(event_id));
-int id = event.getEvent_id();
-String name = event.getName();
+int booking_id = Integer.parseInt(request.getParameter("booking_id"));
+BookingService booking_service = new BookingServiceImpl();
+EventService event_service = new EventServiceImpl();
+UserService user_service = new UserServideImpl();
+Booking booking = booking_service.getBooking(booking_id);
+int event_id = booking.getEvent_id();
+int user_id = booking.getUser_id();
+String user_name = user_service.getUserById(user_id).getName();
+Event event = event_service.getEventById(event_id);
+String event_name = event.getName();
 String venue = event.getVenue();
-int price = event.getPrice();
-int organizer_id = event.getOrganizer_id();
-String category = event.getCategory();
 String date = event.getDate();
 
 %>
 
 				<form action="event_update" method="post">
 					<div class="input_field">
-						<span>Event Id<i aria-hidden="true" class="fa fa-user"></i></span> <input
-							type="text" name="event_id" value="<%=id%>" readonly />
+						<span>Booking Id<i aria-hidden="true" class="fa fa-user"></i></span> <input
+							type="text" name="event_id" value="<%=booking_id%>" readonly />
 					</div>
 					<div class="input_field">
 						<span>Name<i aria-hidden="true" class="fa fa-envelope"></i></span> <input
-							type="text" name="name" value="<%=name%>" />
+							type="text" name="name" value="<%=user_name%>" />
 					</div>
 					<div class="input_field">
 						<span>Venue<i aria-hidden="true" class="fa fa-lock"></i></span> <input
-							type="text" name="venue" value="<%=venue%>" />
+							type="text" name="venue" value="<%=user_id%>" />
 					</div>
 					<div class="input_field">
 						<span>Price<i aria-hidden="true" class="fa fa-lock"></i></span> <input
-							type="text" name="price" value="<%=price%>" />
+							type="text" name="price" value="<%=event_id%>" />
 					</div>
 					<div class="input_field">
 						<span>Organizer Id<i aria-hidden="true" class="fa fa-lock"></i></span> <input
-							type="text" name="organizer_id" value="<%=organizer_id%>" />
+							type="text" name="organizer_id" value="<%=event_name%>" />
 					</div>
 					<div class="input_field">
 						<span>Category<i aria-hidden="true" class="fa fa-lock"></i></span> <input
-							type="text" name="category" value="<%=category%>" />
+							type="text" name="category" value="<%=venue%>" />
 					</div>
 			 		<div class="input_field">
 						<span>Date<i aria-hidden="true" class="fa fa-lock"></i></span> <input
@@ -143,5 +143,4 @@ String date = event.getDate();
 		</div>
 	</div>
 </body>
-
 </html>

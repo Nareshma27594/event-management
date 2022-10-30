@@ -11,24 +11,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cybage.bean.Booking;
 import com.cybage.bean.Event;
 import com.cybage.bean.Organizer;
+import com.cybage.services.BookingService;
+import com.cybage.services.BookingServiceImpl;
 import com.cybage.services.EventService;
 import com.cybage.services.EventServiceImpl;
 import com.cybage.services.OragizerServiceImpl;
 import com.cybage.services.OrganizerService;
 
 
-@WebServlet("/admin_after_login") 
+@WebServlet("/admin_after_login")
 public class Admin_After_Login extends HttpServlet {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String choice = request.getParameter("choice");
+		ServletContext context = getServletContext();
 		if(choice.equals("user")) {
 			
 		}
@@ -36,7 +35,7 @@ public class Admin_After_Login extends HttpServlet {
 			//send reponse to the admin_organizer_dashboard.jsp
 			OrganizerService org_service = new OragizerServiceImpl();
 			List<Organizer> organizer_list = org_service.getAllOrganizer();
-			ServletContext context = getServletContext();
+			
 			context.setAttribute("organizer_list", organizer_list);
 			
 		
@@ -48,7 +47,7 @@ public class Admin_After_Login extends HttpServlet {
 			
 			EventService event_service = new EventServiceImpl();
 			List<Event> events_list = event_service.getAllEvents();
-			ServletContext context = getServletContext();
+			
 			context.setAttribute("event_list", events_list);
 			
 		
@@ -59,6 +58,12 @@ public class Admin_After_Login extends HttpServlet {
 		}
 		else if(choice.equals("booking")) {
 			
+			BookingService booking_service = new BookingServiceImpl();
+			
+			List<Booking> bookings_list = booking_service.getAllBooking();
+			context.setAttribute("booking_list", bookings_list);
+			
+			request.getRequestDispatcher("admin_booking_dashboard.jsp").forward(request, response);
 		}
 		else {
 			//this is for admin profile
