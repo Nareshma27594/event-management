@@ -83,7 +83,7 @@ input {
 		<div class="form_container">
 			<center>
 				<div class="title_container">
-					<h2>Organizer Data</h2>
+					<h2>Booking Data</h2>
 				</div>
 
 				<%

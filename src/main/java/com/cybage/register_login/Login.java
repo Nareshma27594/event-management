@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cybage.bean.Organizer;
 import com.cybage.bean.User;
@@ -22,9 +23,11 @@ import com.cybage.utility.Hash;
 @WebServlet("/login")
 public class Login extends HttpServlet {
 	
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().println("get in log");
+	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String role = request.getParameter("role list");
@@ -35,6 +38,7 @@ public class Login extends HttpServlet {
 			UserService usrService = new UserServideImpl();
 			User user = usrService.getUserById(usrService.getUserIdByEmail(email)) ;
 			if( user.getEmail().equals(email) && user.getPassword().equals(password)) {
+				session.setAttribute("login", true);
 				response.getWriter().println("Login Complete");
 			}
 			else {
@@ -47,6 +51,7 @@ public class Login extends HttpServlet {
 			OrganizerService orgService = new OragizerServiceImpl();
 			Organizer org = orgService.getOrganizerById(orgService.getOrganizerIdByEmail(email)) ;
 			if( org.getEmail().equals(email) && org.getPassword().equals(password)) {
+				session.setAttribute("login", true);
 				response.getWriter().println("Login Complete");
 			}
 			else {
@@ -57,6 +62,7 @@ public class Login extends HttpServlet {
 		}
 		else {
 			if(email.equals("admin") && password.equals("123")) {
+				session.setAttribute("login", "true");
 				response.getWriter().println("Login Complete");
 			}
 			else {

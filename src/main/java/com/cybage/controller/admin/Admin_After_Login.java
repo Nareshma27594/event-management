@@ -66,14 +66,14 @@ public class Admin_After_Login extends HttpServlet {
 			request.getRequestDispatcher("admin_booking_dashboard.jsp").forward(request, response);
 		}
 		else {
-			//this is for admin profile
-			
+			context.setAttribute("admin_email","admin@gmail.com");
+			request.getRequestDispatcher("admin_edit_form.jsp").forward(request, response);
 		}
 		
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().println("hi get");	
+		response.getWriter().println("hi get admin_after_login servlet");	
 		
 	}
 

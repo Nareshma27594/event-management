@@ -45,6 +45,6 @@
 			</tbody>
 		</table>
 	</div>
-	<a href="admin_after_login.html">Go to dashboard</a>
+	<a href="admin_after_login.jsp">Go to dashboard</a>
 </body>
 </html>

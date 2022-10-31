@@ -28,6 +28,10 @@ public interface DAO {
     public boolean addOrganizer(Organizer organizer);
     public boolean deleteOrganizerById(int organizer_id);
   
+    
+    public String getAdminPassword(String email);
+    public boolean setAdminPassword(String email,String password);
+    public boolean setAdminEmail(String previous_email, String new_email);
     // public String getEventName(int id);
     
     //

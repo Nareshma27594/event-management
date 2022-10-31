@@ -802,7 +802,64 @@ try(Connection connect = JDBCUtility.getConnection()){
 	    	   
 			}
 			catch(Exception e) {
-				System.out.println("Error while Changing Bookingh of a user changeBookingToUser(int booking_id, int user_id)"+e);
+				System.out.println("Error while Changing Booking of a user changeBookingToUser(int booking_id, int user_id)"+e);
+			}
+			
+			return false;
+	}
+
+	@Override
+	public String getAdminPassword(String email) {
+		
+try(Connection connect = JDBCUtility.getConnection()){
+			
+			PreparedStatement stmt = connect.prepareStatement("select password from admin where email=?");
+			   stmt.setString(1, email);
+			   ResultSet set= stmt.executeQuery();
+			   while(set.next())  
+				   return set.getString(1);
+			   
+			  
+			
+		}
+		catch(Exception e) {
+			System.out.println("Error while getting admin password getAdminPassword(String email)"+e);
+		}
+		return null;
+		
+	}
+
+	@Override
+	public boolean setAdminPassword(String email, String password) {
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update admin set password=? where email=?");  
+			   pstmt.setString(1, password);
+			   pstmt.setString(2, email);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while Setting admin password setAdminPassword(String email, String password)"+e);
+			}
+			
+			return false;
+	}
+
+	@Override
+	public boolean setAdminEmail(String previous_email, String new_email) {
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update admin set email=? where email=?");  
+			   pstmt.setString(1, new_email);
+			   pstmt.setString(2, previous_email);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while Setting admin email setAdminEnail(String previous_email, String new_email)"+e);
 			}
 			
 			return false;
