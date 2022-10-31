@@ -13,4 +13,5 @@ public interface BookingService {
     public boolean deleteBookingByEventId(int event_id);
     public List<Event> getBookedEvents(int user_id);
     public Booking getBooking(int booking_id);
+    public boolean changeBookingToUser(int booking_id,int user_id);
 }

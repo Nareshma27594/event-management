@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" import="com.cybage.services.*,com.cybage.bean.*"
     pageEncoding="ISO-8859-1"%>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<style>
 body {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 14px;
@@ -100,34 +103,35 @@ String date = event.getDate();
 
 %>
 
-				<form action="event_update" method="post">
+				<form action="booking_update" method="post">
 					<div class="input_field">
 						<span>Booking Id<i aria-hidden="true" class="fa fa-user"></i></span> <input
-							type="text" name="event_id" value="<%=booking_id%>" readonly />
+							type="text" name="booking_id" value="<%=booking_id%>" readonly />
 					</div>
 					<div class="input_field">
-						<span>Name<i aria-hidden="true" class="fa fa-envelope"></i></span> <input
-							type="text" name="name" value="<%=user_name%>" />
+						<span>User Name<i aria-hidden="true" class="fa fa-envelope"></i></span> <input
+							type="text" name="user_name" value="<%=user_name%>" readonly/>
+					</div>
+					<div class="input_field">
+					<small>while changing user id makes sure that user exists with that user_id</small>
+						<span><br>User Id<i aria-hidden="true" class="fa fa-lock"></i></span> <input
+							type="text" name="user_id" value="<%=user_id%>" />
+					</div>
+					<div class="input_field">
+						<span>Event Id<i aria-hidden="true" class="fa fa-lock"></i></span> <input
+							type="text" name="event_id" value="<%=event_id%>" readonly/>
+					</div>
+					<div class="input_field">
+						<span>Event Name<i aria-hidden="true" class="fa fa-lock"></i></span> <input
+							type="text" name="event_name" value="<%=event_name%>" readonly />
 					</div>
 					<div class="input_field">
 						<span>Venue<i aria-hidden="true" class="fa fa-lock"></i></span> <input
-							type="text" name="venue" value="<%=user_id%>" />
-					</div>
-					<div class="input_field">
-						<span>Price<i aria-hidden="true" class="fa fa-lock"></i></span> <input
-							type="text" name="price" value="<%=event_id%>" />
-					</div>
-					<div class="input_field">
-						<span>Organizer Id<i aria-hidden="true" class="fa fa-lock"></i></span> <input
-							type="text" name="organizer_id" value="<%=event_name%>" />
-					</div>
-					<div class="input_field">
-						<span>Category<i aria-hidden="true" class="fa fa-lock"></i></span> <input
-							type="text" name="category" value="<%=venue%>" />
+							type="text" name="venue" value="<%=venue%>" readonly/>
 					</div>
 			 		<div class="input_field">
 						<span>Date<i aria-hidden="true" class="fa fa-lock"></i></span> <input
-							type="text" name="date" value="<%=date%>"/>
+							type="text" name="date" value="<%=date%>" readonly/>
 					</div>
 					
 					

@@ -56,4 +56,10 @@ public class BookingServiceImpl implements BookingService{
 		return dao.getBooking(booking_id);
 	}
 
+	@Override
+	public boolean changeBookingToUser(int booking_id, int user_id) {
+		
+		return dao.changeBookingToUser(booking_id, user_id);
+	}
+
 }

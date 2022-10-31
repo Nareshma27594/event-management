@@ -790,6 +790,24 @@ try(Connection connect = JDBCUtility.getConnection()){
 		return null;
 	}
 
+	@Override
+	public boolean changeBookingToUser(int booking_id, int user_id) {
+		try(Connection connect = JDBCUtility.getConnection()){
+			
+	    	   PreparedStatement pstmt = connect.prepareStatement("update booking set user_id=? where booking_id=?");  
+			   pstmt.setInt(1, user_id);
+			   pstmt.setInt(2, booking_id);
+			   pstmt.executeUpdate();
+			   return true;
+	    	   
+			}
+			catch(Exception e) {
+				System.out.println("Error while Changing Bookingh of a user changeBookingToUser(int booking_id, int user_id)"+e);
+			}
+			
+			return false;
+	}
+
 	
 	
 }
