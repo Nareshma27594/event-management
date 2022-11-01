@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import com.cybage.bean.Organizer;
 import com.cybage.bean.User;
+import com.cybage.services.AdminService;
+import com.cybage.services.AdminServiceImpl;
 import com.cybage.services.OragizerServiceImpl;
 import com.cybage.services.OrganizerService;
 import com.cybage.services.UserService;
@@ -61,9 +63,16 @@ public class Login extends HttpServlet {
 			}
 		}
 		else {
-			if(email.equals("admin") && password.equals("123")) {
+			AdminService adminService = new AdminServiceImpl();
+//			adminService.getPassword(email);
+			System.out.println(password);
+			if(password.equals(adminService.getPassword(email))) {
+				
+				getServletContext().setAttribute("admin_email",email);
+
 				session.setAttribute("login", "true");
-				response.getWriter().println("Login Complete");
+				request.getRequestDispatcher("admin_after_login.jsp").forward(request, response);
+				
 			}
 			else {
 				out.println("<center><h6><p style='color:red';>Incorrect Password</p></center>");

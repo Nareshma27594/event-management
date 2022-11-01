@@ -16,8 +16,18 @@ import javax.servlet.http.HttpSession;
  * Servlet Filter implementation class SessionMagement
  */
 @WebFilter(servletNames = {"com.cybage.controller.admin.Admin_After_Login",
-		"com.cybage.controller.admin.admin_update"
-		})
+		"com.cybage.controller.admin.admin_update",
+		"com.cybage.controller.admin.BokingDelete",
+		"com.cybage.controller.admin.BookingEdit",
+		"com.cybage.controller.admin.BookingUpdate",
+		"com.cybage.controller.admin.EventDelete",
+		"com.cybage.controller.admin.EventEdit",
+		"com.cybage.controller.admin.EventUpdate",
+		"com.cybage.controller.admin.OragnizerDelete",
+		"com.cybage.controller.admin.OrganizerEdit",
+		"com.cybage.controller.admin.OrganizerUpdate",		
+		"com.cybage.controller.*"})
+//urlPatterns
 public class SessionMagement implements Filter {
 
     /**
