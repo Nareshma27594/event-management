@@ -62,4 +62,21 @@ try(Connection connect = JDBCUtility.getConnection()){
 		return false;
 	}
 
+	@Override
+	public boolean updateCategory(String category, String categoryToBeUpdated) {
+try(Connection connect = JDBCUtility.getConnection()){
+			
+			PreparedStatement stmt = connect.prepareStatement("update event_category set category=? where category=?");
+			   stmt.setString(1, categoryToBeUpdated);
+			   stmt.setString(2, category);
+			  if (0<stmt.executeUpdate())
+				  return true;
+			  			
+		}
+		catch(Exception e) {
+			System.out.println("Error while updating boolean updateCategory(String category, String categoryToBeUpdated)"+e);
+		}
+		return false;
+	}
+
 }

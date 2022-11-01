@@ -10,12 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import com.cybage.services.EventCategoryService;
 import com.cybage.services.EventCategoryServiceImpl;
 
-
-@WebServlet("/booking_edit")
-public class BookingEdit extends HttpServlet {
-	
+/**
+ * Servlet implementation class EventCategoryDelete
+ */
+@WebServlet("/event_category_delete")
+public class EventCategoryDelete extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				request.getRequestDispatcher("admin_booking_edit_form.jsp").forward(request, response);
+response.getWriter().println("Hi buddy delete category");
+		String category = request.getParameter("event_category");
+EventCategoryService categoryService = new EventCategoryServiceImpl();
+        categoryService.removeCategory(category);
+		getServletContext().setAttribute("category_list", categoryService.getAllCategories());
+		request.getRequestDispatcher("admin_event_category_dashboard.jsp").forward(request, response);
+
 	}
 
 	

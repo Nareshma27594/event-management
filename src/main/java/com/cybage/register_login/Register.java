@@ -88,7 +88,7 @@ public class Register extends HttpServlet {
 			OrganizerService organizerService = new OragizerServiceImpl();
 			
 			organizerService.addOrganizer(new Organizer(name,email,password));
-			response.sendRedirect("/Login.html");
+			response.sendRedirect("Login.html");
 			
 		}
 		if(!flag) {

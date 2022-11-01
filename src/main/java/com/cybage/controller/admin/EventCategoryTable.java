@@ -10,17 +10,25 @@ import javax.servlet.http.HttpServletResponse;
 import com.cybage.services.EventCategoryService;
 import com.cybage.services.EventCategoryServiceImpl;
 
-
-@WebServlet("/booking_edit")
-public class BookingEdit extends HttpServlet {
-	
+/**
+ * Servlet implementation class EventCategoryTable
+ */
+@WebServlet("/event_category_table")
+public class EventCategoryTable extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				request.getRequestDispatcher("admin_booking_edit_form.jsp").forward(request, response);
+		EventCategoryService categoryService = new EventCategoryServiceImpl();
+//		response.getWriter().print("hi buddy");
+		getServletContext().setAttribute("category_list", categoryService.getAllCategories());
+		request.getRequestDispatcher("admin_event_category_dashboard.jsp").forward(request, response);
+
+		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

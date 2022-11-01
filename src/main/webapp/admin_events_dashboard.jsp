@@ -13,6 +13,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<div class="container justofy-containt-center text-center">
+<a href="event_category_table" type="button" class="btn btn-outline-info btn-lg">Play with Categories</a></div>
+<br>
+<br>
+<br>
+
 <div class="container">
 		<table class="table table-sm">
 			<thead>
