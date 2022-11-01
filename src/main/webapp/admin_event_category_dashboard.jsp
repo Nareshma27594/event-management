@@ -34,7 +34,7 @@
 						
 						
 						<td><a type="button" class="btn btn-danger"
-							href="event_category_delete?event_category=<%=i%>">>Delete</a><br>
+							href="event_category_delete?event_category=${category}">>Delete</a><br>
 						<br><a type="button" class="btn btn-warning" href="event_category_edit?event_category=${category}">Edit</a></td>
 					</tr>
 			
